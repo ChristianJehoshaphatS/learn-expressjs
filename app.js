@@ -122,18 +122,13 @@ app.get("/animals/:id", (req, res) => {
 app.post("/animals", (req, res) => {
   const newAnimal = {
     id: animals.next_id,
-    name: req.body.name,
-    kingdom: req.body.kingdom,
-    phylum: req.body.phylum,
-    class: req.body.class,
-    order: req.body.prder,
-    clade: req.body.clade,
-    suborder: req.body.suborder
+    ...req.body,
+    gender: `gender=${req.body.gender}`
   };
 
   const newAnimals = {
     next_id: animals.next_id + 1,
-    data: animals.data.concat(newAnimals)
+    data: animals.data.concat(newAnimal)
   };
 
   animals = newAnimals;
@@ -159,6 +154,21 @@ app.delete("/animals/delete/:id", (req, res) => {
     Selected: animalId,
     data: newAnimal
   });
+});
+
+app.patch("/animals/update/:id", (req, res) => {
+  const newAnimals = animals.data.filter(animal => {
+    if (animal.id === Number(req.params.id)) {
+      return Object.assign(animal, req.body);
+    } else {
+      return animal;
+    }
+  });
+
+  res.json(newAnimals);
+
+  animalId.splice();
+  console.log(animalId);
 });
 
 app.listen(port, err => {

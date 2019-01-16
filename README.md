@@ -26,11 +26,12 @@ Access the endpoints via browser, httpie, or Postman.
 
 Furnitures:
 
-| Route                        | HTTP Verb | Description            |
-| ---------------------------- | --------- | ---------------------- |
-| `/animals`                   | `GET`     | Get all the animals    |
-| `/animals/:id`               | `GET`     | Get a single animal    |
-| `/animals`                   | `POST`    | Save a new animal      |
-| `/animals/search?name=:name` | `GET`     | Search animal by name  |
-| `/animals/delete/`           | `DELETE`  | Remove all the animals |
-| `/animals/delete/:id`        | `DELETE`  | Remove an animal       |
+| Route                        | HTTP Verb | Description                |
+| ---------------------------- | --------- | -------------------------- |
+| `/animals`                   | `GET`     | Get all the animals        |
+| `/animals/:id`               | `GET`     | Get a single animal        |
+| `/animals/search?name=:name` | `GET`     | Search animal by name      |
+| `/animals`                   | `POST`    | Save a new animal          |
+| `/animals/delete/`           | `DELETE`  | Remove all the animals     |
+| `/animals/delete/:id`        | `DELETE`  | Remove an animal           |
+| `/animals/update/:id`        | `PATCH`   | Update Info from an animal |
