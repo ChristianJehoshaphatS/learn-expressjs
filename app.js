@@ -153,6 +153,7 @@ app.delete("/animals/delete", (req, res) => {
   animals.data = newAnimal;
 
   res.send({
+    Selected: animalId,
     data: newAnimal
   });
 });
