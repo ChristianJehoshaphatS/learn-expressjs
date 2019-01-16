@@ -144,23 +144,19 @@ app.post("/animals", (req, res) => {
   });
 });
 
-app.delete("/animals/:id", (req, res) => {
+app.delete("/animals/delete/:id", (req, res) => {
   const animalId = animals.data.find(animal => {
     return animal.id === Number(req.params.id);
   });
 
-  const selectAnimal = animals.data.filter((animal, index) => {
-    return index === animalId;
-  });
-
   const newAnimal = animals.data.filter((animal, index) => {
-    return index !== animalId;
+    return animal.id !== animalId.id;
   });
 
-  animals = newAnimal;
+  animals.data = newAnimal;
 
   res.send({
-    Selected: selectAnimal,
+    Selected: animalId,
     data: newAnimal
   });
 });

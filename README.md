@@ -32,5 +32,5 @@ Furnitures:
 | `/animals/:id`               | `GET`     | Get a single animal    |
 | `/animals`                   | `POST`    | Save a new animal      |
 | `/animals/search?name=:name` | `GET`     | Search animal by name  |
-| `/animals`                   | `DELETE`  | Remove all the animals |
-| `/animals/:id`               | `DELETE`  | Remove an animal       |
+| `/animals/delete/`           | `DELETE`  | Remove all the animals |
+| `/animals/delete/:id`        | `DELETE`  | Remove an animal       |
