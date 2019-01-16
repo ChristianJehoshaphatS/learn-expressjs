@@ -139,6 +139,8 @@ app.post("/animals", (req, res) => {
   });
 });
 
+// Delete an animal by id
+
 app.delete("/animals/delete/:id", (req, res) => {
   const animalId = animals.data.find(animal => {
     return animal.id === Number(req.params.id);
@@ -156,6 +158,8 @@ app.delete("/animals/delete/:id", (req, res) => {
   });
 });
 
+// Update an animal info
+
 app.patch("/animals/update/:id", (req, res) => {
   const newAnimals = animals.data.filter(animal => {
     if (animal.id === Number(req.params.id)) {
@@ -166,9 +170,6 @@ app.patch("/animals/update/:id", (req, res) => {
   });
 
   res.json(newAnimals);
-
-  animalId.splice();
-  console.log(animalId);
 });
 
 app.listen(port, err => {
