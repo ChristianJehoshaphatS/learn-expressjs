@@ -9,103 +9,159 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 
-// Declare initial furnitures data
-
-let furnitures = {
+let animals = {
   next_id: 6,
   data: [
     {
       id: 1,
-      name: "Gayung",
-      price: 15000
+      name: "Koala",
+      kingdom: "Animalia",
+      phylum: "Chordata",
+      class: "Mammalia",
+      infraclass: "Marsupialia",
+      order: "Diprotodontia",
+      family: "Phascolarctidae",
+      genus: "Phascolarctos",
+      species: "P. cinereus"
     },
     {
       id: 2,
-      name: "Ember",
-      price: 20000
+      name: "Cat",
+      kingdom: "Animalia",
+      phylum: "Chordata",
+      class: "Mammalia",
+      order: "Carnivora",
+      suborder: "Feliformia",
+      family: "Felidae",
+      subfamily: "Felinae",
+      genus: "Felis",
+      species: "F. catus"
     },
     {
       id: 3,
-      name: "Bakwan Pel",
-      price: 45000
+      name: "Dog",
+      kingdom: "Animalia",
+      phylum: "Chordata",
+      class: "Mammalia",
+      order: "Carnivora",
+      family: "Canidae",
+      genus: "Canis",
+      species: "C. lupus",
+      subspecies: "C. l. familiaris"
     },
     {
       id: 4,
-      name: "Wajan",
-      price: 80000
+      name: "Eagle",
+      kingdom: "Animalia",
+      phylum: "Chordata",
+      class: "Aves",
+      order: "Accipitriformes",
+      family: "Accipitridae"
     },
     {
       id: 5,
-      name: "Baskom",
-      price: 21000
+      name: "Snake",
+      kingdom: "Animalia",
+      phylum: "Chordata",
+      class: "Reptilia",
+      order: "Squamata",
+      clade: "Ophidia",
+      suborder: "Serpentes"
     }
   ]
 };
 
-// Get Hello World
+// Get Landing Page
 
 app.get("/", (req, res) => {
   res.send({
-    message: "Hello World",
+    message:
+      "Hello! This is a page to look for kinds of animals, proceed to /animals to see current data of animals",
     headers: req.headers
   });
 });
 
-// Get all furnitures
+// Get all animals
 
-app.get("/furnitures", (req, res) => {
+app.get("/animals", (req, res) => {
   res.send({
-    count: furnitures.data.length,
-    data: furnitures.data
+    count: animals.data.length,
+    data: animals.data
   });
 });
 
-// Search furniture by name
+// Search an animal by name
 
-app.get("/furnitures/search", (req, res) => {
+app.get("/animals/search", (req, res) => {
   const queryName = req.query.name.toLowerCase();
 
-  const foundFurniture = furnitures.data.find(furniture => {
-    return furniture.name.toLowerCase().includes(queryName);
+  const resultAnimals = animals.data.find(animal => {
+    return animal.name.toLowerCase().includes(queryName);
   });
 
   res.send({
     query: req.query,
-    data: foundFurniture
+    data: resultAnimals
   });
 });
 
-// Get furniture by id
+// Get animal by id
 
-app.get("/furnitures/:id", (req, res) => {
-  const furniture = furnitures.data.find(furniture => {
-    return furniture.id === Number(req.params.id);
+app.get("/animals/:id", (req, res) => {
+  const animal = animals.data.find(animal => {
+    return animal.id === Number(req.params.id);
   });
 
   res.send({
-    data: furniture
+    data: animal
   });
 });
 
-// Save new furniture
+// Save new Animal
 
-app.post("/furnitures", (req, res) => {
-  const newFurniture = {
-    id: furnitures.next_id,
+app.post("/animals", (req, res) => {
+  const newAnimal = {
+    id: animals.next_id,
     name: req.body.name,
-    price: req.body.price
+    kingdom: req.body.kingdom,
+    phylum: req.body.phylum,
+    class: req.body.class,
+    order: req.body.prder,
+    clade: req.body.clade,
+    suborder: req.body.suborder
   };
 
-  const newFurnitures = {
-    next_id: furnitures.next_id + 1,
-    data: furnitures.data.concat(newFurniture)
+  const newAnimals = {
+    next_id: animals.next_id + 1,
+    data: animals.data.concat(newAnimals)
   };
 
-  furnitures = newFurnitures;
+  animals = newAnimals;
 
   res.send({
-    newData: newFurniture,
-    data: furnitures
+    newData: newAnimal,
+    data: animals
+  });
+});
+
+app.delete("/animals/:id", (req, res) => {
+  const animalId = animals.data.find(animal => {
+    return animal.id === Number(req.params.id);
+  });
+
+  const selectAnimal = animals.data.filter((animal, index) => {
+    return index === animalId;
+  });
+
+  const newAnimal = animals.data.filter((animal, index) => {
+    return index !== animalId;
+  });
+
+  animals = newAnimal;
+
+  res.send({
+    Selected: selectAnimal,
+    data: newAnimal
   });
 });
 
