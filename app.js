@@ -141,6 +141,25 @@ app.post("/animals", (req, res) => {
 
 // Delete an animal by id
 
+app.delete("/animals/delete", (req, res) => {
+  const animalId = animals.data.find(animal => {
+    return animal.id === Number(req.params.id);
+  });
+
+  const newAnimal = animals.data.filter((animal, index) => {
+    return animal.id === 0;
+  });
+
+  animals.data = newAnimal;
+
+  res.send({
+    Selected: animalId,
+    data: newAnimal
+  });
+});
+
+// Delete an animal by id
+
 app.delete("/animals/delete/:id", (req, res) => {
   const animalId = animals.data.find(animal => {
     return animal.id === Number(req.params.id);
